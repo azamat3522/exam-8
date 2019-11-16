@@ -8,6 +8,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from webapp.forms import ProductForm, ReviewForm
 from webapp.models import Product, Review
 
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+
 
 class ProductListView(ListView):
     model = Product
@@ -19,29 +21,34 @@ class ProductDetailView(DetailView):
     template_name = 'product/detail.html'
 
 
-
-class ProductCreateView(CreateView):
+class ProductCreateView(PermissionRequiredMixin, CreateView):
     model = Product
     template_name = 'product/create.html'
     fields = ('name', 'category', 'description', 'image')
     success_url = reverse_lazy('webapp:index')
+    permission_required = 'webapp.add_product'
+    permission_denied_message = "Доступ запрещён"
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(PermissionRequiredMixin, UpdateView):
     model = Product
     template_name = 'product/update.html'
     context_object_name = 'product'
     form_class = ProductForm
+    permission_required = 'webapp.change_product'
+    permission_denied_message = "Доступ запрещён"
 
     def get_success_url(self):
         return reverse('webapp:product_detail', kwargs={'pk': self.object.pk})
 
 
-class ProductDeleteView(DeleteView):
-        model = Product
-        template_name = 'product/delete.html'
-        context_object_name = 'product'
-        success_url = reverse_lazy('webapp:index')
+class ProductDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Product
+    template_name = 'product/delete.html'
+    context_object_name = 'product'
+    success_url = reverse_lazy('webapp:index')
+    permission_required = 'webapp.delete_product'
+    permission_denied_message = "Доступ запрещён"
 
 
 class ReviewListView(ListView):
@@ -49,11 +56,10 @@ class ReviewListView(ListView):
     template_name = 'product/index.html'
 
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     template_name = 'review/create.html'
     form_class = ReviewForm
-
 
     def get_product(self):
         pk = self.kwargs.get('pk')
@@ -70,26 +76,26 @@ class ReviewCreateView(CreateView):
         return reverse('webapp:product_detail', kwargs={'pk': self.object.product.pk})
 
 
-class ReviewUpdateView(UpdateView):
+class ReviewUpdateView(PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = ReviewForm
     template_name = 'review/update.html'
     model = Review
     context_object_name = 'review'
+    permission_required = 'webapp.change_product'
+    permission_denied_message = "Доступ запрещён"
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author.reviews.filter(user=self.request.user)
 
     def get_success_url(self):
         return reverse('webapp:product_detail', kwargs={'pk': self.object.product.pk})
 
 
-class ReviewDeleteView(DeleteView):
+class ReviewDeleteView(PermissionRequiredMixin, DeleteView):
     model = Review
     template_name = 'review/delete.html'
     context_object_name = 'review'
     success_url = reverse_lazy('webapp:index')
-
-
-
-
-
-
-
-
+    permission_required = 'webapp.delete_product'
+    permission_denied_message = "Доступ запрещён"

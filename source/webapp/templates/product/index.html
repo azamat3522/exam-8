@@ -18,7 +18,7 @@
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.get_category_display }}</p>
                         <p class="card-text">{{ product.description }}</p>
-                        <p class="card-text">{{ product.author }}</p>
+{#                        <p class="card-text">{{ product. }}</p>#}
                         <a href="{% url "webapp:product_detail" product.pk %}"
                            class="btn btn-primary">Посмотреть</a>
                     </div>
