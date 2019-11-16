@@ -11,6 +11,8 @@
                 <div class="card" style="height: 30rem;">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="h-50 d-inline-block" alt="{{ product.image }} ">
+                    {% else %}
+                        <img src="https://rusfermer.net/wp-content/plugins/fseo-plugins/plugins/common/img/no-photo-big.gif " class="h-50 d-inline-block" alt="{{ product.image }}">
                     {% endif %}
                     <div class="card-body" >
                         <h5 class="card-title">{{ product.name }}</h5>

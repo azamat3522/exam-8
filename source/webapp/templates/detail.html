@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ product.name }}{% endblock %}
 {% block menu %}
-{#    <li class="nav-item"><a href="{% url 'webapp:product_update' product.pk %}" class="nav-link">Edit</a></li>#}
+    <li class="nav-item"><a href="{% url 'webapp:product_update' product.pk %}" class="nav-link">Edit</a></li>
 {% endblock %}
 {% block content %}
     <div class="text-center">
@@ -10,12 +10,15 @@
             <div class="col col-12 col-sm-10 col-md-8 col-lg-6 m-auto">
                 {% if product.image %}
                     <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+                {% else %}
+                    <img src="https://rusfermer.net/wp-content/plugins/fseo-plugins/plugins/common/img/no-photo-big.gif " class="h-50 d-inline-block" alt="{{ product.image }}">
                 {% endif %}
             </div>
         </div>
         <p><b>Категория:</b> {{ product.get_category_display }}</p>
         <p><b>Описание:</b> {{ product.description }} </p>
 
-{#        <p><a href="{% url 'webapp:product_update' product.pk %}" class="btn btn-primary">Edit</a></p>#}
+        <p><a href="{% url 'webapp:product_update' product.pk %}" class="btn btn-primary">Edit</a></p>
+        <p><a href="{% url 'webapp:product_delete' product.pk %}" class="btn btn-danger">Delete</a></p>
     </div>
 {% endblock %}
