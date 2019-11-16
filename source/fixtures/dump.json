@@ -1,0 +1,60 @@
+[
+{
+  "model": "webapp.product",
+  "pk": 1,
+  "fields": {
+    "name": "Snikers",
+    "category": "food",
+    "image": "product_images/900_zug6g10.webp",
+    "description": "Chocolate bar"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 2,
+  "fields": {
+    "name": "Bassebal Cap",
+    "category": "clothes",
+    "image": "product_images/thumb_jFnssee.jpeg",
+    "description": "NY"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$4E5NKAVI33xB$qdLFi4SqZpVTzuINCSI3tz/uQ3iYs04+ig4XBUgeabs=",
+    "last_login": "2019-11-16T06:13:37.342Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-11-16T05:12:37.402Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 1,
+  "fields": {
+    "author": 1,
+    "product": 1,
+    "reviews_text": "good",
+    "mark": 4
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 2,
+  "fields": {
+    "author": 1,
+    "product": 2,
+    "reviews_text": "Test",
+    "mark": 3
+  }
+}
+]
