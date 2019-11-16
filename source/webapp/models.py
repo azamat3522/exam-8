@@ -10,7 +10,7 @@ CATEGORY_CHOICES = (
     ('household', 'Товары для дома'),
 )
 
-MARK_CHOICES = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'),)
+MARK_CHOICES = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
 
 
 class Product(models.Model):
@@ -30,7 +30,7 @@ class Product(models.Model):
 
 class Review(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews', verbose_name='Автор')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='products', verbose_name='Продукт')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', verbose_name='Продукт')
     reviews_text = models.TextField(max_length=2000, verbose_name='Текст отзыва')
     mark = models.IntegerField(choices=MARK_CHOICES, verbose_name='Оценка')
 

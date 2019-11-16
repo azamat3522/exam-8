@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
     <div class="text-center">
+        <p><a href="{% url 'webapp:review_add' product.pk %}" class="btn btn-primary">Add</a></p>
         <h1>{{ product.name }}</h1>
         <div class="row">
             <div class="col col-12 col-sm-10 col-md-8 col-lg-6 m-auto">
@@ -17,8 +18,20 @@
         </div>
         <p><b>Категория:</b> {{ product.get_category_display }}</p>
         <p><b>Описание:</b> {{ product.description }} </p>
-
         <p><a href="{% url 'webapp:product_update' product.pk %}" class="btn btn-primary">Edit</a></p>
         <p><a href="{% url 'webapp:product_delete' product.pk %}" class="btn btn-danger">Delete</a></p>
+    <h2>Reviews</h2>
+    <hr/>
+    {% for review in product.reviews.all %}
+        <p>{{ review.author }} {{ review.mark }}</p>
+        <p>{{ review.reviews_text }}</p>
+        <p><a href="{% url 'webapp:review_update' review.pk %}" class="btn btn-primary">Edit</a></p>
+        <p><a href="{% url 'webapp:review_delete' review.pk %}" class="btn btn-primary">Delete</a></p>
+        <hr/>
+    {% empty %}
+        <p>No reviews yet.</p>
+    {% endfor %}
     </div>
+
+
 {% endblock %}

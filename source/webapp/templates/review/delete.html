@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete{% endblock %}
+
+{% block content %}
+    <h1>Delete review</h1>
+    <form action="{% url "webapp:review_delete" review.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" value="Confirm" class="btn btn-primary">
+        <p><a href="{% url 'webapp:index' %}">Cancel</a></p>
+    </form>
+{% endblock %}
